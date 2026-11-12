@@ -1,0 +1,114 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Registered user profile details and role metadata",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 256 },
+        "displayName": { "type": "string", "maxLength": 128 },
+        "photoURL": { "type": "string", "maxLength": 512 },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "disabled": { "type": "boolean" },
+        "createdAt": { "type": "string", "maxLength": 64 },
+        "lastLoginAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Simulation": {
+      "title": "Simulation",
+      "description": "Operating system deadlock and Banker's algorithm simulation scenario",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 128 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "algorithm": { "type": "string", "enum": ["bankers", "deadlock_detection", "rag_analysis"] },
+        "resourceNames": { "type": "string", "maxLength": 256 },
+        "processNames": { "type": "string", "maxLength": 256 },
+        "totalResources": { "type": "string", "maxLength": 512 },
+        "available": { "type": "string", "maxLength": 512 },
+        "maxMatrix": { "type": "string", "maxLength": 4096 },
+        "allocationMatrix": { "type": "string", "maxLength": 4096 },
+        "requestMatrix": { "type": "string", "maxLength": 4096 },
+        "ragEdges": { "type": "string", "maxLength": 8192 },
+        "isSafe": { "type": "boolean" },
+        "safeSequence": { "type": "string", "maxLength": 256 },
+        "createdAt": { "type": "string", "maxLength": 64 },
+        "updatedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "userId", "title", "algorithm"]
+    },
+    "Feedback": {
+      "title": "Feedback",
+      "description": "User feedback, suggestions, or issue reports for DeadlockSense",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "userEmail": { "type": "string", "maxLength": 256 },
+        "category": { "type": "string", "enum": ["bug", "algorithm_question", "feature_request", "general"] },
+        "rating": { "type": "string", "maxLength": 8 },
+        "message": { "type": "string", "maxLength": 3000 },
+        "status": { "type": "string", "enum": ["pending", "reviewed", "resolved"] },
+        "createdAt": { "type": "string", "maxLength": 64 },
+        "resolvedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "userId", "userEmail", "category", "message", "status"]
+    },
+    "SimulationEvent": {
+      "title": "SimulationEvent",
+      "description": "Step-by-step audit or execution event recorded during simulation run",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "simulationId": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "step": { "type": "string", "maxLength": 64 },
+        "action": { "type": "string", "maxLength": 256 },
+        "details": { "type": "string", "maxLength": 2048 },
+        "timestamp": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "simulationId", "userId", "action"]
+    },
+    "PracticeResult": {
+      "title": "PracticeResult",
+      "description": "Student or user results on OS deadlock exercises and quiz problems",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "userId": { "type": "string", "maxLength": 128 },
+        "quizId": { "type": "string", "maxLength": 128 },
+        "quizTitle": { "type": "string", "maxLength": 256 },
+        "score": { "type": "string", "maxLength": 16 },
+        "passed": { "type": "boolean" },
+        "completedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "userId", "quizId", "score", "passed"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Individual user profile records"
+    },
+    "/simulations/{simulationId}": {
+      "schema": "Simulation",
+      "description": "Saved OS deadlock and Banker's algorithm simulation records"
+    },
+    "/feedback/{feedbackId}": {
+      "schema": "Feedback",
+      "description": "User feedback and issue reports"
+    },
+    "/simulationEvents/{eventId}": {
+      "schema": "SimulationEvent",
+      "description": "Audit trail of simulation steps and transitions"
+    },
+    "/practiceResults/{resultId}": {
+      "schema": "PracticeResult",
+      "description": "Quiz and practice exercise outcomes"
+    }
+  }
+}

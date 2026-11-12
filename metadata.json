@@ -1,0 +1,6 @@
+{
+  "name": "DeadlockSense",
+  "description": "Operating System Deadlock Detection, Prevention & Banker's Algorithm Simulation Platform with Real-time Analysis and Admin Controls",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
