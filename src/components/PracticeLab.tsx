@@ -112,28 +112,28 @@ export const PracticeLab: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      <div className="rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
-        <div className="flex items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-cyan-950 text-cyan-400 border border-cyan-800">
+      <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-5">
+        <div className="flex items-center gap-2.5">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
             <BookOpen className="h-4 w-4" />
           </span>
-          <h1 className="text-lg font-bold text-white">OS Deadlock Practice &amp; Knowledge Lab</h1>
+          <h1 className="font-display text-lg font-bold text-slate-900 dark:text-white">OS Deadlock Practice &amp; Knowledge Lab</h1>
         </div>
-        <p className="mt-1 text-xs text-slate-400">
+        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
           Master the four conditions of deadlock, Banker&apos;s algorithm invariants, and graph theory proofs
         </p>
       </div>
 
       {completed ? (
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-8 text-center space-y-4">
-          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500 to-blue-600 shadow-xl shadow-cyan-500/20">
+        <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 text-center space-y-4">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-500 shadow-lg shadow-emerald-500/20">
             <Award className="h-8 w-8 text-white" />
           </div>
-          <h2 className="text-xl font-bold text-white">Exercise Completed!</h2>
-          <p className="text-sm text-slate-300">
-            Your Score: <span className="font-mono font-bold text-cyan-400 text-lg">{score}</span> / {QUIZ_QUESTIONS.length} ({Math.round((score / QUIZ_QUESTIONS.length) * 100)}%)
+          <h2 className="font-display text-xl font-bold text-slate-900 dark:text-white">Exercise Completed!</h2>
+          <p className="text-sm text-slate-600 dark:text-slate-300">
+            Your Score: <span className="font-mono font-bold text-emerald-600 dark:text-emerald-400 text-lg tabular-nums">{score}</span> / {QUIZ_QUESTIONS.length} ({Math.round((score / QUIZ_QUESTIONS.length) * 100)}%)
           </p>
-          <p className="text-xs text-slate-400 max-w-md mx-auto">
+          <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mx-auto">
             {score === QUIZ_QUESTIONS.length
               ? "Flawless score! You have demonstrated comprehensive command of Operating System deadlock detection and avoidance principles."
               : "Good effort! Review the explanations to reinforce your understanding of single vs multi-instance resource systems."}
@@ -141,7 +141,7 @@ export const PracticeLab: React.FC = () => {
           <div className="pt-2">
             <button
               onClick={handleRestart}
-              className="inline-flex items-center gap-2 rounded-xl bg-cyan-600 px-5 py-2.5 text-xs font-semibold text-white hover:bg-cyan-500 transition-colors"
+              className="inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-semibold text-white hover:bg-emerald-600 transition-colors"
             >
               <RotateCcw className="h-4 w-4" />
               Retake Exercises
@@ -149,16 +149,16 @@ export const PracticeLab: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-6 space-y-6">
+        <div className="rounded-2xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 space-y-6">
           {/* Progress bar */}
           <div>
-            <div className="flex items-center justify-between text-xs text-slate-400 mb-2">
-              <span className="font-semibold text-slate-300">Question {currentIdx + 1} of {QUIZ_QUESTIONS.length}</span>
-              <span className="font-mono">Current Score: {score}</span>
+            <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 mb-2">
+              <span className="font-semibold text-slate-700 dark:text-slate-200">Question {currentIdx + 1} of {QUIZ_QUESTIONS.length}</span>
+              <span className="font-mono tabular-nums">Current Score: {score}</span>
             </div>
-            <div className="h-1.5 w-full rounded-full bg-slate-800">
+            <div className="h-1.5 w-full rounded-full bg-slate-100 dark:bg-slate-800">
               <div
-                className="h-1.5 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-300"
+                className="h-1.5 rounded-full bg-emerald-500 transition-all duration-300"
                 style={{ width: `${((currentIdx + 1) / QUIZ_QUESTIONS.length) * 100}%` }}
               />
             </div>
@@ -166,11 +166,11 @@ export const PracticeLab: React.FC = () => {
 
           {/* Question title & statement */}
           <div>
-            <span className="rounded bg-cyan-950 px-2 py-0.5 font-mono text-[10px] font-bold text-cyan-400 border border-cyan-800">
+            <span className="font-mono text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
               {currentQ.title}
             </span>
-            <h2 className="text-base font-bold text-white mt-2 mb-2">{currentQ.question}</h2>
-            <div className="rounded-xl border border-slate-800 bg-slate-950 p-3 font-mono text-xs text-slate-300">
+            <h2 className="font-display text-base font-bold text-slate-900 dark:text-white mt-1.5 mb-2">{currentQ.question}</h2>
+            <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-3.5 font-mono text-xs text-slate-700 dark:text-slate-300">
               {currentQ.scenario}
             </div>
           </div>
@@ -181,15 +181,15 @@ export const PracticeLab: React.FC = () => {
               const isSelected = selectedOption === idx;
               const isCorrect = idx === currentQ.correctIndex;
 
-              let btnStyle = "border-slate-800 bg-slate-950 hover:bg-slate-800/80 text-slate-300";
+              let btnStyle = "border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-950 hover:bg-slate-50 dark:hover:bg-slate-800/80 text-slate-700 dark:text-slate-200";
               if (answered) {
                 if (isCorrect) {
-                  btnStyle = "border-emerald-600 bg-emerald-950/60 text-emerald-200";
+                  btnStyle = "border-emerald-400 dark:border-emerald-600 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-900 dark:text-emerald-200 font-medium";
                 } else if (isSelected) {
-                  btnStyle = "border-red-600 bg-red-950/60 text-red-200";
+                  btnStyle = "border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-950/60 text-red-900 dark:text-red-200";
                 }
               } else if (isSelected) {
-                btnStyle = "border-cyan-500 bg-cyan-950/40 text-cyan-200";
+                btnStyle = "border-emerald-500 bg-emerald-50/70 dark:bg-emerald-950/40 text-emerald-950 dark:text-emerald-200 font-medium";
               }
 
               return (
@@ -201,10 +201,10 @@ export const PracticeLab: React.FC = () => {
                 >
                   <span className="flex-1">{opt}</span>
                   {answered && isCorrect && (
-                    <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400 ml-2" />
+                    <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400 ml-2" />
                   )}
                   {answered && isSelected && !isCorrect && (
-                    <XCircle className="h-4 w-4 shrink-0 text-red-400 ml-2" />
+                    <XCircle className="h-4 w-4 shrink-0 text-red-500 dark:text-red-400 ml-2" />
                   )}
                 </button>
               );
@@ -215,8 +215,8 @@ export const PracticeLab: React.FC = () => {
           {answered && (
             <div className={`rounded-xl border p-4 text-xs leading-relaxed ${
               selectedOption === currentQ.correctIndex
-                ? 'border-emerald-800/80 bg-emerald-950/40 text-emerald-200'
-                : 'border-amber-800/80 bg-amber-950/40 text-amber-200'
+                ? 'border-emerald-200 dark:border-emerald-800/80 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-900 dark:text-emerald-200'
+                : 'border-amber-200 dark:border-amber-800/80 bg-amber-50 dark:bg-amber-950/40 text-amber-900 dark:text-amber-200'
             }`}>
               <div className="font-bold mb-1 flex items-center gap-1.5">
                 <HelpCircle className="h-4 w-4" />
@@ -232,14 +232,14 @@ export const PracticeLab: React.FC = () => {
               <button
                 onClick={handleConfirmAnswer}
                 disabled={selectedOption === null}
-                className="rounded-xl bg-cyan-600 px-5 py-2 text-xs font-semibold text-white hover:bg-cyan-500 disabled:opacity-50 transition-colors"
+                className="rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-semibold text-white hover:bg-emerald-600 disabled:opacity-50 transition-colors"
               >
                 Submit Answer
               </button>
             ) : (
               <button
                 onClick={handleNext}
-                className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-600 px-5 py-2 text-xs font-semibold text-white hover:from-cyan-500 hover:to-blue-500 transition-all"
+                className="flex items-center gap-1.5 rounded-xl bg-emerald-500 px-5 py-2.5 text-xs font-semibold text-white hover:bg-emerald-600 transition-colors"
               >
                 {currentIdx < QUIZ_QUESTIONS.length - 1 ? 'Next Question' : 'Finish Quiz'}
                 <ArrowRight className="h-4 w-4" />

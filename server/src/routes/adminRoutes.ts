@@ -1,8 +1,8 @@
-import { Router } from 'express';
+import express from 'express';
 import { adminController } from '../controllers/adminController.ts';
 import { verifyFirebaseToken, requireAdmin } from '../middleware/authMiddleware.ts';
 
-const router = Router();
+const router = express.Router();
 
 // Protect all /api/admin routes with verifyFirebaseToken and requireAdmin
 router.use(verifyFirebaseToken);

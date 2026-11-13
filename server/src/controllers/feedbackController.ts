@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import nodemailer from 'nodemailer';
 import { adminDb, ADMIN_EMAIL } from '../config/firebaseAdmin.ts';
 

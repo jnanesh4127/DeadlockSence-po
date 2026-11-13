@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { apiService } from '../services/api.ts';
 import { DeadlockDetectionResult, RecoveryPlanResult } from '../algorithms/types.ts';
+import { useAuth } from '../context/AuthContext.tsx';
 
 const DETECTION_PRESETS = {
   deadlockedSystem: {
@@ -62,6 +63,7 @@ const DETECTION_PRESETS = {
 };
 
 export const DeadlockConsole: React.FC = () => {
+  const { user } = useAuth();
   const [resourceNames, setResourceNames] = useState<string[]>(DETECTION_PRESETS.deadlockedSystem.resourceNames);
   const [processNames, setProcessNames] = useState<string[]>(DETECTION_PRESETS.deadlockedSystem.processNames);
   const [available, setAvailable] = useState<number[]>(DETECTION_PRESETS.deadlockedSystem.available);
@@ -75,6 +77,7 @@ export const DeadlockConsole: React.FC = () => {
   const [recovering, setRecovering] = useState(false);
 
   const handleRunDetection = async () => {
+    if (!user?.email) return;
     setLoading(true);
     setRecoveryPlan(null);
     try {

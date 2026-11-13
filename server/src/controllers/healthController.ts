@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { adminDb, adminAuth, getAdminInitStatus, ADMIN_EMAIL } from '../config/firebaseAdmin.ts';
 
 export async function healthCheckHandler(req: Request, res: Response): Promise<void> {

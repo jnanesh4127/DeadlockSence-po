@@ -1,4 +1,4 @@
-import { BankersInput, DeadlockRiskResult } from './types.ts';
+import type { BankersInput, DeadlockRiskResult } from './types.ts';
 import { calculateAvailable, calculateNeed, runBankersSafety } from './bankers.ts';
 
 export function calculateDeadlockRisk(input: BankersInput): DeadlockRiskResult {

@@ -1,7 +1,10 @@
-import { Router } from 'express';
+import express from 'express';
 import { algorithmController } from '../controllers/algorithmController.ts';
+import { verifyFirebaseToken, requireEmailAuth } from '../middleware/authMiddleware.ts';
 
-const router = Router();
+const router = express.Router();
+
+router.use(verifyFirebaseToken, requireEmailAuth);
 
 router.post('/bankers/safety', algorithmController.bankersSafety);
 router.post('/bankers/request', algorithmController.bankersRequest);

@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from 'express';
+import type { Request, Response, NextFunction } from 'express';
 import { adminAuth, ADMIN_EMAIL } from '../config/firebaseAdmin.ts';
 
 export interface AuthenticatedUser {
@@ -104,6 +104,28 @@ export async function optionalFirebaseToken(req: Request, res: Response, next: N
     return next();
   }
   return verifyFirebaseToken(req, res, next);
+}
+
+/**
+ * Middleware: Enforces that the authenticated user has signed in with a valid email ID
+ */
+export function requireEmailAuth(req: Request, res: Response, next: NextFunction): void {
+  if (!req.user) {
+    res.status(401).json({
+      error: 'Unauthorized: You must sign in with your email ID before running simulations.'
+    });
+    return;
+  }
+
+  const email = (req.user.email || '').trim();
+  if (!email || !email.includes('@')) {
+    res.status(403).json({
+      error: 'Forbidden: Signing in with a valid email ID is compulsory to run simulations.'
+    });
+    return;
+  }
+
+  next();
 }
 
 /**

@@ -1,4 +1,4 @@
-import { DeadlockDetectionInput, DeadlockDetectionResult, DeadlockDetectionStep } from './types.ts';
+import type { DeadlockDetectionInput, DeadlockDetectionResult, DeadlockDetectionStep } from './types.ts';
 
 /**
  * Standard OS Deadlock Detection Algorithm for Multiple-Instance Resources

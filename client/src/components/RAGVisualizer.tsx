@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import { apiService } from '../services/api.ts';
 import { RAGNode, RAGEdge, RAGAnalysisResult } from '../algorithms/types.ts';
+import { useAuth } from '../context/AuthContext.tsx';
 
 // Preset Scenarios
 const RAG_PRESETS = {
@@ -76,6 +77,7 @@ const RAG_PRESETS = {
 };
 
 export const RAGVisualizer: React.FC = () => {
+  const { user } = useAuth();
   const [nodes, setNodes] = useState<RAGNode[]>(RAG_PRESETS.singleInstanceDeadlock.nodes);
   const [edges, setEdges] = useState<RAGEdge[]>(RAG_PRESETS.singleInstanceDeadlock.edges);
   const [analysis, setAnalysis] = useState<RAGAnalysisResult | null>(null);
@@ -88,10 +90,13 @@ export const RAGVisualizer: React.FC = () => {
   const [newEdgeType, setNewEdgeType] = useState<'assignment' | 'request'>('request');
 
   useEffect(() => {
-    runAnalysis();
-  }, [nodes, edges]);
+    if (user?.email) {
+      runAnalysis();
+    }
+  }, [nodes, edges, user?.email]);
 
   const runAnalysis = async () => {
+    if (!user?.email) return;
     setAnalyzing(true);
     try {
       const res = await apiService.analyzeRAG({ nodes, edges });

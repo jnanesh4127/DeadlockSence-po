@@ -38,16 +38,34 @@ describe("DeadlockSense API & Authorization Tests", () => {
     expect(res.body.adminEmail).toBe(ADMIN_EMAIL);
   });
 
-  it("2: POST /api/algorithms/bankers/safety executes safety calculations via API", async () => {
+  it("2: POST /api/algorithms/bankers/safety requires email sign-in and executes for authenticated users", async () => {
+    const samplePayload = {
+      resourceNames: ['R1', 'R2'],
+      processNames: ['P0', 'P1'],
+      totalResources: [5, 5],
+      allocation: [[2, 1], [1, 2]],
+      max: [[3, 2], [2, 3]]
+    };
+
+    // Unauthenticated must fail with 401
+    const unauthRes = await request(app)
+      .post('/api/algorithms/bankers/safety')
+      .send(samplePayload);
+    expect(unauthRes.status).toBe(401);
+
+    // Authenticated without email must fail with 403
+    const noEmailToken = createMockFirebaseToken({ sub: 'anon_uid_789' });
+    const noEmailRes = await request(app)
+      .post('/api/algorithms/bankers/safety')
+      .set('Authorization', `Bearer ${noEmailToken}`)
+      .send(samplePayload);
+    expect(noEmailRes.status).toBe(403);
+
+    // Authenticated with email succeeds
     const res = await request(app)
       .post('/api/algorithms/bankers/safety')
-      .send({
-        resourceNames: ['R1', 'R2'],
-        processNames: ['P0', 'P1'],
-        totalResources: [5, 5],
-        allocation: [[2, 1], [1, 2]],
-        max: [[3, 2], [2, 3]]
-      });
+      .set('Authorization', `Bearer ${normalUserToken}`)
+      .send(samplePayload);
 
     expect(res.status).toBe(200);
     expect(res.body.isSafe).toBe(true);

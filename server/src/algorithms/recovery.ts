@@ -1,4 +1,4 @@
-import { BankersInput, RecoveryPlanResult, RecoveryVictimOption } from './types.ts';
+import type { BankersInput, RecoveryPlanResult, RecoveryVictimOption } from './types.ts';
 import { calculateAvailable, runBankersSafety } from './bankers.ts';
 
 export interface RecoveryInput extends BankersInput {

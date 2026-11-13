@@ -1,4 +1,4 @@
-import { BankersInput, BankersResult, BankersStep, ResourceRequestInput, ResourceRequestResult } from './types.ts';
+import type { BankersInput, BankersResult, BankersStep, ResourceRequestInput, ResourceRequestResult } from './types.ts';
 
 /**
  * Calculates the Available vector: Available[j] = Total[j] - Sum_i(Allocation[i][j])

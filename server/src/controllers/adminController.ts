@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { adminDb, adminAuth, ADMIN_EMAIL } from '../config/firebaseAdmin.ts';
 import { localFeedbackStore } from './feedbackController.ts';
 

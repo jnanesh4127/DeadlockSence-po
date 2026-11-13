@@ -1,8 +1,8 @@
-import { Router } from 'express';
+import express from 'express';
 import { simulationController } from '../controllers/simulationController.ts';
 import { verifyFirebaseToken } from '../middleware/authMiddleware.ts';
 
-const router = Router();
+const router = express.Router();
 
 // All simulation routes require verified Firebase token
 router.use(verifyFirebaseToken);

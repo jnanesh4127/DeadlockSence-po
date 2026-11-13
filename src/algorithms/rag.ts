@@ -1,4 +1,4 @@
-import { RAGAnalysisInput, RAGAnalysisResult, RAGEdge, RAGNode } from './types.ts';
+import type { RAGAnalysisInput, RAGAnalysisResult, RAGEdge, RAGNode } from './types.ts';
 import { runDeadlockDetection } from './deadlockDetection.ts';
 
 /**

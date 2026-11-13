@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { adminDb } from '../config/firebaseAdmin.ts';
 
 // In-memory backing store for local fallback/cache
