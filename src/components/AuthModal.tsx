@@ -39,6 +39,9 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     if (code === 'auth/popup-closed-by-user') {
       return 'Sign-in popup was closed before completing authentication.';
     }
+    if (code === 'auth/unauthorized-domain') {
+      return 'This published domain is not yet authorized in Firebase Authentication → Settings → Authorized domains. Add this hostname there or sign in with Email/Password.';
+    }
     return err?.message || 'Authentication error.';
   };
 

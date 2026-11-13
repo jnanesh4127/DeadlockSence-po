@@ -1,4 +1,6 @@
 import * as firebaseAdminModule from 'firebase-admin';
+import { getApp, getApps } from 'firebase-admin/app';
+import { getFirestore } from 'firebase-admin/firestore';
 import fs from 'fs';
 import path from 'path';
 
@@ -58,8 +60,11 @@ try {
 
 export const adminAuth = isInitialized && typeof admin.auth === 'function' ? admin.auth() : null;
 const firestoreDbId = process.env.FIRESTORE_DATABASE_ID || appletConfig.firestoreDatabaseId;
-export const adminDb = isInitialized && typeof admin.firestore === 'function'
-  ? admin.firestore()
+const activeAdminApp = isInitialized ? (getApps().length ? getApp() : admin.apps?.[0]) : null;
+export const adminDb = activeAdminApp
+  ? (firestoreDbId && firestoreDbId !== '(default)'
+      ? getFirestore(activeAdminApp, firestoreDbId)
+      : getFirestore(activeAdminApp))
   : null;
 
 export function getAdminInitStatus() {

@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
+import fs from 'fs';
 import path from 'path';
 import express from 'express';
 import { createApp } from './server/src/app.ts';
@@ -8,7 +9,12 @@ import { createApp } from './server/src/app.ts';
 async function startServer() {
   const app = createApp();
   const PORT = Number(process.env.PORT) || 3000;
-  const isProd = process.env.NODE_ENV === 'production';
+  const distPath = path.resolve(process.cwd(), 'dist');
+  const isTsx = process.execArgv.some((arg) => arg.includes('tsx'));
+  const isProd =
+    process.env.NODE_ENV === 'production' ||
+    Boolean(process.env.K_SERVICE) ||
+    (!isTsx && process.env.NODE_ENV !== 'development' && fs.existsSync(path.join(distPath, 'index.html')));
 
   if (!isProd) {
     // Development mode: Mount Vite dev middleware directly
@@ -26,7 +32,6 @@ async function startServer() {
     console.log("[Dev Server] Vite dev middleware mounted.");
   } else {
     // Production mode: Serve built client assets
-    const distPath = path.resolve(process.cwd(), 'dist');
     app.use(express.static(distPath));
     app.get('*', (req, res, next) => {
       if (req.originalUrl.startsWith('/api')) {
